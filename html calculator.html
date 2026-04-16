@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profit Margin Calculator</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #4facfe, #00f2fe);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .container {
+        background: #fff;
+        padding: 25px;
+        border-radius: 12px;
+        width: 320px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        text-align: center;
+    }
+
+    h2 {
+        margin-bottom: 15px;
+    }
+
+    input {
+        width: 90%;
+        padding: 10px;
+        margin: 8px 0;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 14px;
+    }
+
+    button {
+        width: 95%;
+        padding: 10px;
+        margin-top: 10px;
+        border: none;
+        border-radius: 6px;
+        background: #4facfe;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background: #00c6ff;
+    }
+
+    .result {
+        margin-top: 15px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .error {
+        color: red;
+        font-size: 13px;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Profit Margin Calculator</h2>
+
+    <input type="number" id="cost" placeholder="Cost Price">
+    <input type="number" id="revenue" placeholder="Selling Price">
+
+    <button onclick="calculateProfit()">Calculate</button>
+
+    <div class="result" id="result"></div>
+    <div class="error" id="error"></div>
+</div>
+
+<script>
+function calculateProfit() {
+    let cost = parseFloat(document.getElementById("cost").value);
+    let revenue = parseFloat(document.getElementById("revenue").value);
+
+    let resultBox = document.getElementById("result");
+    let errorBox = document.getElementById("error");
+
+    // Reset messages
+    resultBox.innerHTML = "";
+    errorBox.innerHTML = "";
+
+    if (isNaN(cost) || isNaN(revenue)) {
+        errorBox.innerHTML = "Please enter valid numbers!";
+        return;
+    }
+
+    if (cost <= 0 || revenue <= 0) {
+        errorBox.innerHTML = "Values must be greater than zero!";
+        return;
+    }
+
+    let profit = revenue - cost;
+    let margin = (profit / revenue) * 100;
+    let markup = (profit / cost) * 100;
+
+    resultBox.innerHTML = `
+        Profit: $${profit.toFixed(2)} <br>
+        Profit Margin: ${margin.toFixed(2)}% <br>
+        Markup: ${markup.toFixed(2)}%
+    `;
+}
+</script>
+
+</body>
+</html>
